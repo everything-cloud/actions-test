@@ -1,0 +1,20 @@
+name: Azure Login and Group List
+
+on:
+  workflow_dispatch:
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  azure-login-and-group-list:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Azure Group List
+      run: az group list
+      env:
+        AZURE_CORE_OUTPUT: table
